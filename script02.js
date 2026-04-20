@@ -71,3 +71,29 @@ namePerson = namePerson === "Артем" ? "Директор" :
         "студент"
 
 console.log("Статус:", namePerson)
+
+
+
+
+
+//Пример создания массива через метод Map
+
+const products = new Map();
+
+products.set('ягоды', ['клубника', 'малина', 'черника', 'ежевика']);
+products.set('фрукты', ['яблоко', 'груша', 'банан', 'апельсин']);
+products.set('овощи', ['огурец', 'помидор', 'перец', 'морковь']);
+
+console.log(products.get('ягоды')); // ['клубника', 'малина', 'черника', 'ежевика']
+
+// Добавляем новый элемент в категорию
+products.get('фрукты').push('манго');
+
+// Проверяем, есть ли категория
+console.log(products.has('овощи')); // true
+
+// Перебор всех категорий и их содержимого
+for (let [category, items] of products) {
+  console.log(`Категория: ${category}`);
+  console.log('Список:', items.join(', '));
+}
