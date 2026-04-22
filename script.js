@@ -1,22 +1,24 @@
 function game() {
-    const Number = 25;
+    const secretNumber = 25;
 
     function play() {
-        const userInput = +prompt("Угадай число от 1 до 100");
+        const userInput = prompt("Угадай число от 1 до 100");
 
         if (userInput === null) {
             alert("Игра окончена");
             return;
         }
 
+        const userNumber = Number(userInput);
+
         if (isNaN(userNumber)) {
             alert("Введи число!");
-            play();
+            play(); // Рекурсивный вызов
             return;
         }
 
         if (userNumber === secretNumber) {
-            alert("Вы угадали!!!");
+            alert("Поздравляю, Вы угадали!!!");
         } else if (userNumber < secretNumber) {
             alert("Загаданное число больше");
             play();
