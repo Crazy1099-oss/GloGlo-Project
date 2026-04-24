@@ -97,7 +97,7 @@ const appDate = {
     logger: function () {
         console.log("Название проекта:", appDate.getTitle());
         console.log("Типы экранов для разработки:", appDate.screens);
-        console.log("Дополнительные услуги 1:", appDate.service1, "Дополнительные услуги 2:", appDate.service2);
+        console.log("Дополнительные услуги 1:", appDate.servicePrice1, "Дополнительные услуги 2:", appDate.servicePrice2);
         console.log("Нужен ли адаптив?", appDate.adaptive ? "Да" : "Нет");
         if (appDate.fullPrice >= 30000) {
             console.log("Скидка: 10%");
