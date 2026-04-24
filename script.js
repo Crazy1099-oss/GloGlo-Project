@@ -9,20 +9,60 @@ let allServicePrices = 0;
 let fullPrice = 0;
 
 do {
-    screenPrice = +prompt("Сколько будет стоить данная работа?");
+    screenPrice = prompt("Сколько будет стоить данная работа?");
+
+    //Добавил проверку для null и ввода числа на подобие -> 112руб.
+    if (screenPrice === null) {
+        alert("Пожалуйста введите стоимость работы");
+        continue;
+    }
+
+    screenPrice = screenPrice.trim();
+    screenPrice = parseFloat(screenPrice);
+
+    if (isNaN(screenPrice) || screenPrice <= 0) {
+        alert("Введите положительную сумму к проекту");
+    }
 } while (isNaN(screenPrice) || screenPrice <= 0);
 
 let adaptive = confirm("Нужен ли адаптив на сайте?");
 let service1 = prompt("2. Какой дополнительный тип услуги нужен?");
 
 do {
-    servicePrice1 = +prompt("Сколько это будет стоить?");
+    servicePrice1 = prompt("Сколько это будет стоить?");
+
+    //Добавил проверку для null и ввода числа на подобие -> 112руб.
+    if (servicePrice1 === null) {
+        alert("Пожалуйста введите стоимость работы");
+        continue;
+    }
+
+    servicePrice1 = servicePrice1.trim();
+    servicePrice1 = parseFloat(servicePrice1);
+    console.log(servicePrice1);
+
+    if (isNaN(servicePrice1) || servicePrice1 <= 0) {
+        alert("Введите положительную сумму к проекту");
+    }
 } while (isNaN(servicePrice1) || servicePrice1 < 0);
 
 let service2 = prompt("3. Какой дополнительный тип услуги нужен?");
 
 do {
-    servicePrice2 = +prompt("Сколько это будет стоить?");
+    servicePrice2 = prompt("Сколько это будет стоить?");
+
+    //Добавил проверку для null и ввода числа на подобие -> 112руб.
+    if (servicePrice2 === null) {
+        alert("Пожалуйста введите стоимость работы");
+        continue;
+    }
+
+    servicePrice2 = servicePrice2.trim();
+    servicePrice2 = parseFloat(servicePrice2);
+
+    if (isNaN(servicePrice2) || servicePrice2 <= 0) {
+        alert("Введите положительную сумму к проекту");
+    }
 } while (isNaN(servicePrice2) || servicePrice2 < 0);
 
 function getAllServicePrices() {
