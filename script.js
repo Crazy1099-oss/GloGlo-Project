@@ -47,9 +47,9 @@ const appDate = {
             if (isNaN(appDate.servicePrice1) || appDate.servicePrice1 <= 0) {
                 alert("Введите положительную сумму к проекту");
             }
-        } while (isNaN(appDate.servicePrice1) || appDate.servicePrice1 < 0);
+        } while (isNaN(appDate.servicePrice1) || appDate.servicePrice1 <= 0);
 
-        appDate.service2 = prompt("3. Какой дополнительный тип услуги нужен?");
+        service2 = prompt("3. Какой дополнительный тип услуги нужен?");
 
         do {
             appDate.servicePrice2 = prompt("Сколько это будет стоить?");
