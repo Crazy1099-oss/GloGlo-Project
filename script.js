@@ -30,8 +30,8 @@ const appDate = {
             }
         } while (isNaN(appDate.screenPrice) || appDate.screenPrice <= 0);
 
-        adaptive = confirm("Нужен ли адаптив на сайте?");
-        service1 = prompt("2. Какой дополнительный тип услуги нужен?");
+        appDate.adaptive = confirm("Нужен ли адаптив на сайте?");
+        appDate.service1 = prompt("2. Какой дополнительный тип услуги нужен?");
 
         do {
             appDate.servicePrice1 = prompt("Сколько это будет стоить?");
@@ -49,7 +49,7 @@ const appDate = {
             }
         } while (isNaN(appDate.servicePrice1) || appDate.servicePrice1 < 0);
 
-        service2 = prompt("3. Какой дополнительный тип услуги нужен?");
+        appDate.service2 = prompt("3. Какой дополнительный тип услуги нужен?");
 
         do {
             appDate.servicePrice2 = prompt("Сколько это будет стоить?");
