@@ -1,3 +1,23 @@
+const titleElement = document.getElementsByTagName('h1')[0];
+const handlerButtons = document.getElementsByClassName('handler_btn');
+const plusButton = document.querySelector('.screen-btn');
+const percentItems = document.querySelectorAll('.other-items.percent');
+const numberItems = document.querySelectorAll('.other-items.number');
+const rangeInput = document.querySelector('.rollback input[type="range"]');
+const rangeValueSpan = document.querySelector('.rollback .range-value')
+const totalInputs = document.getElementsByClassName('total-input');
+let screenBlocks = document.querySelectorAll('.screen');
+
+console.log('Заголовок:', titleElement);
+console.log('Кнопки "Рассчитать/Сброс":', handlerButtons);
+console.log('Кнопка "+":', plusButton);
+console.log('Элементы .percent:', percentItems);
+console.log('Элементы .number:', numberItems);
+console.log('Инпут range:', rangeInput);
+console.log('Span .range-value:', rangeValueSpan);
+console.log('Инпуты .total-input:', totalInputs);
+console.log('Блоки .screen:', screenBlocks);
+
 const appDate = {
     title: '',
     screens: [],
@@ -53,8 +73,6 @@ const appDate = {
         appDate.screenPrice = result;
 
         appDate.adaptive = confirm("Нужен ли адаптив на сайте?");
-        //веместо примера с урока просто создал новые ключи у объекта services что является решением для усложненного урока
-        //appDate.services.service1 = prompt("2. Какой дополнительный тип услуги нужен?", "Слайдер");
 
         do {
             appDate.services.service1 = prompt("2. Какой дополнительный тип услуги нужен?", "Слайдер");
@@ -71,9 +89,6 @@ const appDate = {
                 alert("Пожалуйста, введите корректную стоимость (положительное число).");
             }
         } while (!this.isValidNumber(appDate.servicePrice1));
-
-        //веместо примера с урока просто создал новые ключи у объекта services что является решением для усложненного урока
-        //appDate.services.service2 = prompt("3. Какой дополнительный тип услуги нужен?", "Анимации");
 
         do {
             appDate.services.service2 = prompt("3. Какой дополнительный тип услуги нужен?", "Анимации");
