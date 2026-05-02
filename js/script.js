@@ -164,23 +164,6 @@ const appDate = {
         rangeInput.addEventListener('input', appDate.setRollback);
     },
 
-    addScreens: function () {
-        screenBlocks = document.querySelectorAll('.screen')
-
-        screenBlocks.forEach(function (screen, index) {
-            const select = screen.querySelector('select')
-            const input = screen.querySelector('input')
-            const selectName = select.options[select.selectedIndex].textContent
-
-            appDate.screens.push({
-                id: index,
-                name: selectName,
-                price: +select.value * +input.value
-            })
-            console.log(appDate.screens)
-        })
-    },
-
     addServices: function () {
         percentItems.forEach(function (item) {
             const check = item.querySelector('input[type=checkbox]')
