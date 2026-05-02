@@ -48,146 +48,115 @@ const appDate = {
     fullPrice: 0,
     discountedPrice: 0,
     adaptive: false,
-    isValidString: function (str) {
-        return typeof str === 'string' && str.trim() !== '' && /[a-zа-яё]/i.test(str);
-    },
 
-    isValidNumber: function (num) {
-        return !isNaN(num) && num > 0;
-    },
+    isValidString: (str) =>
+        typeof str === 'string' && str.trim() !== '' && /[a-zа-яё]/i.test(str),
 
-    showResult: function () {
-        total.value = appDate.screenPrice;
-        totalCountOuther.value = +appDate.servicePricesPersent + +appDate.servicePricesNumber;
-        fullToutalCount.value = appDate.fullPrice;
-        totalCountRollback.value = appDate.rollbackPrice;
-    },
+    isValidNumber: (num) =>
+        !isNaN(num) && num > 0,
 
-    addScreens: function () {
-        screenBlocks = document.querySelectorAll('.screen')
+    addScreens: () => {
+        screenBlocks = document.querySelectorAll('.screen');
 
-        screenBlocks.forEach(function (screen, index) {
-            const select = screen.querySelector('select')
-            const input = screen.querySelector('input')
-            const selectName = select.options[select.selectedIndex].textContent
+        screenBlocks.forEach((screen, index) => {
+            const select = screen.querySelector('select');
+            const input = screen.querySelector('input');
+            const selectName = select.options[select.selectedIndex].textContent;
 
             const count = +input.value || 0;
 
-            appDate.screens.push({
+            this.screens.push({
                 id: index,
                 name: selectName,
                 price: +select.value * count,
                 count: count
-            })
-        })
+            });
+        });
     },
 
-    addPrices: function () {
-        appDate.fullPrice = appDate.screenPrice + appDate.servicePricesNumber + appDate.servicePricesPersentg;
+    addPrices: () => {
+        this.fullPrice =
+            this.screenPrice +
+            this.servicePricesNumber +
+            this.servicePricesPersent;
 
-        appDate.totalScreensCount = 0;
+        this.totalScreensCount = 0;
 
-        appDate.screens.forEach(screen => {
-            appDate.totalScreensCount += screen.count;
+        this.screens.forEach(screen => {
+            this.totalScreensCount += screen.count;
         });
 
-        if (appDate.rollback > 0) {
-            appDate.rollbackPrice = appDate.fullPrice * (1 - appDate.rollback / 100);
-        } else {
-            appDate.rollbackPrice = appDate.fullPrice;
-        }
+        this.rollbackPrice = this.rollback > 0
+            ? this.fullPrice * (1 - this.rollback / 100)
+            : this.fullPrice;
     },
 
-    getAllServicePrices: function () {
-        for (let screen of appDate.screens) {
-            appDate.screenPrice += +screen.price
+    getAllServicePrices: () => {
+        this.screens.forEach(screen => {
+            this.screenPrice += +screen.price;
+        });
+
+        for (let key in this.servicesNumber) {
+            this.servicePricesNumber += this.servicesNumber[key];
         }
 
-        for (let key in appDate.servicesNumber) {
-            appDate.servicePricesNumber += appDate.servicesNumber[key]
+        for (let key in this.servicesPercent) {
+            this.servicePricesPersent +=
+                this.screenPrice * (this.servicesPercent[key] / 100);
         }
 
-        for (let key in appDate.servicesPercent) {
-            appDate.servicePricesPersent += appDate.screenPrice * (appDate.servicesPercent[key] / 100);
-        }
-
-        appDate.fullPrice = +appDate.screenPrice + appDate.servicePricesNumber
+        this.fullPrice =
+            this.screenPrice + this.servicePricesNumber;
     },
 
-    logger: function () {
-        console.log("Название проекта:", appDate.getTitle());
-        console.log("Типы экранов для разработки:", appDate.screens);
-        console.log("Дополнительные услуги 1:", appDate.servicePrice1, "Дополнительные услуги 2:", appDate.servicePrice2);
-        console.log("Нужен ли адаптив?", appDate.adaptive ? "Да" : "Нет");
-        if (appDate.fullPrice >= 30000) {
-            console.log("Скидка: 10%");
-        } else if (appDate.fullPrice >= 15000) {
-            console.log("Скидка: 5%");
-        } else {
-            console.log("Скидка: не предусмотрена");
-        }
-        console.log("Стоимость экранов:", appDate.screenPrice)
-        console.log("Итоговая стоимость без скидки:", appDate.fullPrice);
-        console.log("Итоговая стоимость к оплате:", appDate.discountedPrice);
+    addTitle: () => {
+        document.title = titleElement.textContent;
     },
 
-    addTitle: function () {
-        document.title = titleElement.textContent
+    addScreenBlock: () => {
+        const cloneScreens = screenBlocks[0].cloneNode(true);
+        screenBlocks[screenBlocks.length - 1].after(cloneScreens);
     },
 
-
-    addScreenBlock: function () {
-        const cloneScreens = screenBlocks[0].cloneNode(true) // добавленте клона
-        screenBlocks[screenBlocks.length - 1].after(cloneScreens)
-    },
-
-    setRollback: function () {
+    setRollback: () => {
         const value = rangeInput.value;
 
         rangeValueSpan.textContent = value + '%';
-        appDate.rollback = +value;
+        this.rollback = +value;
     },
 
-    showResult: function () {
-        total.value = appDate.screenPrice;
-        totalCount.value = appDate.totalScreensCount;
-        totalCountOuther.value = appDate.servicePricesPersent + appDate.servicePricesNumber;
-        fullToutalCount.value = appDate.fullPrice;
-        totalCountRollback.value = appDate.rollbackPrice;
+    showResult: () => {
+        total.value = this.screenPrice;
+        totalCount.value = this.totalScreensCount;
+        totalCountOuther.value =
+            this.servicePricesPersent + this.servicePricesNumber;
+        fullToutalCount.value = this.fullPrice;
+        totalCountRollback.value = this.rollbackPrice;
     },
 
-    init: function () {
-        appDate.addTitle();
-        handlerButtons.addEventListener('click', appDate.start);
-        plusButton.addEventListener('click', appDate.addScreenBlock);
-
-        rangeInput.addEventListener('input', appDate.setRollback);
-    },
-
-    addServices: function () {
-        percentItems.forEach(function (item) {
-            const check = item.querySelector('input[type=checkbox]')
-            const label = item.querySelector('label')
-            const input = item.querySelector('input[type=text]')
+    addServices: () => {
+        percentItems.forEach(item => {
+            const check = item.querySelector('input[type=checkbox]');
+            const label = item.querySelector('label');
+            const input = item.querySelector('input[type=text]');
 
             if (check.checked) {
-                appDate.servicesPercent[label.textContent] = +input.value
+                this.servicesPercent[label.textContent] = +input.value;
             }
-        })
+        });
 
-        numberItems.forEach(function (item) {
-            const check = item.querySelector('input[type=checkbox]')
-            const label = item.querySelector('label')
-            const input = item.querySelector('input[type=text]')
+        numberItems.forEach(item => {
+            const check = item.querySelector('input[type=checkbox]');
+            const label = item.querySelector('label');
+            const input = item.querySelector('input[type=text]');
 
             if (check.checked) {
-                appDate.servicesNumber[label.textContent] = +input.value
+                this.servicesNumber[label.textContent] = +input.value;
             }
-        })
-        console.log(appDate)
+        });
     },
 
-    isValidScreens: function () {
+    isValidScreens: () => {
         screenBlocks = document.querySelectorAll('.screen');
 
         let isValid = true;
@@ -196,10 +165,12 @@ const appDate = {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
 
-            const selectValue = select.value;
-            const inputValue = input.value;
-
-            if (!selectValue || selectValue === '0' || inputValue.trim() === '' || +inputValue <= 0) {
+            if (
+                !select.value ||
+                select.value === '0' ||
+                input.value.trim() === '' ||
+                +input.value <= 0
+            ) {
                 isValid = false;
             }
         });
@@ -207,13 +178,44 @@ const appDate = {
         return isValid;
     },
 
+    disableInputs: () => {
+        const textInputs = document.querySelectorAll('input[type="text"]');
+        const selects = document.querySelectorAll('select');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-    start: function () {
+        textInputs.forEach(input => input.disabled = true);
+        selects.forEach(select => select.disabled = true);
+        checkboxes.forEach(cb => cb.disabled = true);
 
-        if (!appDate.isValidScreens()) {
-            alert('Заполните все типы экранов и их количество');
-            return;
-        }
+        handlerButtons.style.display = 'none';
+        handlerButtonsReset.style.display = 'inline-block';
+    },
+
+    resetApp: () => {
+        const textInputs = document.querySelectorAll('input[type="text"]');
+        const selects = document.querySelectorAll('select');
+
+        textInputs.forEach(input => {
+            input.disabled = false;
+            input.value = '';
+        });
+
+        selects.forEach(select => {
+            select.disabled = true;
+            select.selectedIndex = 0;
+        });
+
+        rangeInput.value = 0;
+        rangeValueSpan.textContent = '0%';
+
+        handlerButtons.style.display = 'inline-block';
+        handlerButtonsReset.style.display = 'none';
+
+        total.value = '';
+        totalCount.value = '';
+        totalCountOuther.value = '';
+        fullToutalCount.value = '';
+        totalCountRollback.value = '';
 
         appDate.screens = [];
         appDate.servicesPercent = {};
@@ -221,13 +223,39 @@ const appDate = {
         appDate.screenPrice = 0;
         appDate.servicePricesNumber = 0;
         appDate.servicePricesPersent = 0;
+    },
+
+    start: () => {
+        if (!appDate.isValidScreens()) {
+            alert('Заполните все типы экранов и их количество');
+            return;
+        }
+
+        this.screens = [];
+        this.servicesPercent = {};
+        this.servicesNumber = {};
+        this.screenPrice = 0;
+        this.servicePricesNumber = 0;
+        this.servicePricesPersent = 0;
 
         appDate.addScreens();
         appDate.addServices();
         appDate.getAllServicePrices();
-        appDate.addPrices(); // ← новый метод
+        appDate.addPrices();
         appDate.showResult();
+        appDate.disableInputs();
+    },
+
+    init: () => {
+        appDate.addTitle();
+        handlerButtonsReset.style.display = 'none';
+
+        handlerButtonsReset.addEventListener('click', appDate.resetApp);
+        handlerButtons.addEventListener('click', appDate.start)
+
+        plusButton.addEventListener('click', appDate.addScreenBlock);
+        rangeInput.addEventListener('input', appDate.setRollback);
     }
-}
+};
 
 appDate.init();
