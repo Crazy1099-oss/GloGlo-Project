@@ -83,7 +83,7 @@ const appDate = {
     },
 
     addPrices: function () {
-        appDate.fullPrice = appDate.screenPrice + appDate.servicePricesNumber;
+        appDate.fullPrice = appDate.screenPrice + appDate.servicePricesNumber + appDate.servicePricesPersent;
 
         appDate.totalScreensCount = 0;
 
