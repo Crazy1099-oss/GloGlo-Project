@@ -1,12 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GloGLo Project</title>
+    <title>Управление работниками</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        select {
+            margin: 5px;
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        button {
+            padding: 5px 10px;
+        }
+    </style>
 </head>
+
 <body>
-    
-    <script src="./script.js"></script>
+    <h2>Добавить работника</h2>
+
+    <form id="workerForm">
+        <input type="text" id="firstName" placeholder="Имя" required>
+        <input type="text" id="lastName" placeholder="Фамилия" required>
+        <input type="number" id="age" placeholder="Возраст" required>
+
+        <select id="type" required>
+            <option value="">Выберите тип</option>
+            <option value="mechanic">Слесарь</option>
+            <option value="driver">Водитель</option>
+        </select>
+
+        <input type="text" id="organization" placeholder="Организация" required>
+        <input type="date" id="hireDate" required>
+
+        <input type="text" id="extra1" placeholder="Доп. поле 1" required>
+        <input type="text" id="extra2" placeholder="Доп. поле 2" required>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <h2>Список работников</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Возраст</th>
+                <th>Тип</th>
+                <th>Организация</th>
+                <th>Дата найма</th>
+                <th>Доп1</th>
+                <th>Доп2</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
 </body>
+
 </html>
